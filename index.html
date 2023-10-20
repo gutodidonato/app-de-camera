@@ -2,10 +2,18 @@
 <html>
   <head>
     <title>Camera com Vídeo Animado</title>
+    <style>
+      #animated-video {
+        display: none;
+      }
+      video {
+        width: 100vw;
+      }
+    </style>
   </head>
   <body>
-    <video id="camera-view" autoplay></video>
-    <video id="animated-video" autoplay loop>
+    <video id="camera-view" autoplay loop muted="" controls></video>
+    <video id="animated-video" autoplay loop muted="" controls>
       <source src="/videoplayback.mp4" type="video/mp4" />
     </video>
     <canvas id="canvas" width="640" height="480"></canvas>
@@ -27,7 +35,7 @@
 
       function renderFrame() {
         context.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
-        context.globalAlpha = 0.5;
+        context.globalAlpha = 0.4;
         context.drawImage(animatedVideo, 0, 0, canvas.width, canvas.height);
         requestAnimationFrame(renderFrame);
       }
