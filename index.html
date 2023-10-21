@@ -1,49 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Camera com Vídeo Animado</title>
-    <style>
-      video {
-        width: 1vw;
-      }
-      canvas {
-        width: 100vw;
-        height: 99vh;
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="pages/phone/style.css" />
+    <script src="script/ajuste-horario.js" async></script>
   </head>
   <body>
-    <video id="camera-view" autoplay loop muted="" controls></video>
-    <video id="animated-video" autoplay loop muted="">
-      <source src="/videoplayback.mp4" type="video/mp4" />
-    </video>
-    <canvas id="canvas"></canvas>
-
-    <script>
-      var cameraVideo = document.getElementById("camera-view");
-      var animatedVideo = document.getElementById("animated-video");
-      var canvas = document.getElementById("canvas");
-      var context = canvas.getContext("2d");
-
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(function (stream) {
-          cameraVideo.srcObject = stream;
-        })
-        .catch(function (error) {
-          console.error("Erro ao acessar a câmera: ", error);
-        });
-
-      function renderFrame() {
-        context.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
-        context.globalAlpha = 0.4;
-        context.drawImage(animatedVideo, 50, 50, canvas.width, canvas.height);
-        requestAnimationFrame(renderFrame);
-      }
-
-      animatedVideo.onplay = function () {
-        renderFrame();
-      };
-    </script>
+    <div class="topo">
+      <div class="primeiro">
+        <p>Sinal Máximo</p>
+        <img
+          src="../../img/sinal.PNG"
+          width="50px"
+          height="50px"
+          alt="rede-maxima"
+        />
+      </div>
+      <p class="horario">tempo</p>
+      <div class="ultimo">
+        <p>200&nbsp;%</p>
+        <div class="barra-energia"></div>
+        <span class="raio"></span>
+      </div>
+    </div>
+    <div class="nome-empresa">
+      <h1>Bauquinho</h1>
+      <h2>Ligando chamada de video...</h2>
+    </div>
+    <div class="lembrar-depois">
+      <img
+        src="../../img/tempo.PNG"
+        width="120px"
+        height="120px"
+        alt="lembrar-depois"
+      />
+      <p>Deixar para depois</p>
+    </div>
+    <div class="ligacao">
+      <div class="aceitar">
+        <img src="../../img/aceitar3.png" width="100px" alt="aceitar-chamada" />
+        <p>Aceitar chamado</p>
+      </div>
+      <div class="aceitar">
+        <img src="../../img/aceitar3.PNG" alt="aceita-chamada" />
+        <p>Aceitar chamada também!</p>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Camera com Vídeo Animado</title>
+    <style>
+      video {
+        width: 1vw;
+      }
+      canvas {
+        width: 100vw;
+        height: 99vh;
+      }
+    </style>
+    <script src="../../script/camera-script.js"></script>
+  </head>
+  <body>
+    <video id="camera-view" autoplay loop muted="" controls></video>
+    <video id="animated-video" autoplay loop muted="">
+      <source src="/videoplayback.mp4" type="video/mp4" />
+    </video>
+    <canvas id="canvas"></canvas>
+  </body>
+</html>
