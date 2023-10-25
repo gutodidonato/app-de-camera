@@ -3,12 +3,37 @@
   <head>
     <title>Camera com Vídeo Animado</title>
     <style>
-      video {
-        width: 1vw;
+      /*Reset */
+      * {
+        margin: 0;
+        border: 0;
+        padding: 0;
       }
-      canvas {
-        width: 100vw;
+
+      /* */
+      video {
+        width: 0.01vw;
+      }
+      #canvas {
+        width: 99vw;
         height: 99vh;
+      }
+      #video-chamada {
+        position: absolute;
+        top: 0;
+        right: 0%;
+        width: 30%;
+        height: 30%;
+      }
+      #capture-button {
+        position: absolute;
+        top: 90%;
+        right: 35%;
+      }
+      #download-link {
+        position: absolute;
+        top: 93%;
+        right: 32%;
       }
     </style>
   </head>
@@ -18,11 +43,18 @@
       <source src="/videoplayback.mp4" type="video/mp4" />
     </video>
     <canvas id="canvas"></canvas>
+    <canvas id="video-chamada"></canvas>
+    <button id="capture-button">Capturar Tela</button>
+    <a id="download-link" style="display: none" download="screenshot.png"
+      >Baixar Captura de Tela</a
+    >
 
     <script>
       var cameraVideo = document.getElementById("camera-view");
       var animatedVideo = document.getElementById("animated-video");
       var canvas = document.getElementById("canvas");
+      var videoChamada = document.getElementById("video-chamada");
+      var newContext = videoChamada.getContext("2d");
       var context = canvas.getContext("2d");
 
       navigator.mediaDevices
@@ -35,15 +67,51 @@
         });
 
       function renderFrame() {
-        context.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
-        context.globalAlpha = 0.4;
-        context.drawImage(animatedVideo, 50, 50, canvas.width, canvas.height);
+        context.drawImage(
+          cameraVideo,
+          0,
+          0,
+          videoChamada.width,
+          videoChamada.height
+        );
+
+        newContext.drawImage(animatedVideo, 0, 0, canvas.width, canvas.height);
         requestAnimationFrame(renderFrame);
       }
 
       animatedVideo.onplay = function () {
         renderFrame();
       };
+    </script>
+    <script>
+      const captureButton = document.getElementById("capture-button");
+      const downloadLink = document.getElementById("download-link");
+
+      captureButton.addEventListener("click", () => {
+        // Captura a tela e salva a imagem em um arquivo
+        navigator.mediaDevices
+          .getDisplayMedia({ video: { mediaSource: "screen" } })
+          .then((stream) => {
+            const videoTrack = stream.getVideoTracks()[0];
+            const videoCapture = new ImageCapture(videoTrack);
+            return videoCapture.grabFrame();
+          })
+          .then((imageBitmap) => {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            canvas.width = imageBitmap.width;
+            canvas.height = imageBitmap.height;
+            context.drawImage(imageBitmap, 0, 0);
+            canvas.toBlob((blob) => {
+              const url = URL.createObjectURL(blob);
+              downloadLink.href = url;
+              downloadLink.style.display = "block";
+            }, "image/png");
+          })
+          .catch((error) => {
+            console.error("Erro ao capturar tela: ", error);
+          });
+      });
     </script>
   </body>
 </html>
