@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="theme-color" content="#4285f4" />
     <title>Camera com Vídeo Animado</title>
     <style>
       /*Reset */
@@ -14,26 +15,31 @@
       video {
         width: 0.01vw;
       }
+      body {
+        background-color: black;
+      }
       #canvas {
-        width: 60vw;
         height: 60vh;
+        margin: 10%;
+        width: 90%;
       }
       #video-chamada {
         position: absolute;
-        top: 0;
-        right: 2%;
-        width: 35%;
-        height: 60%;
+        top: 0%;
+        right: 0%;
+        width: 50%;
+        margin: 10% 0 0 0;
       }
       #capture-button {
         position: absolute;
-        top: 55%;
-        right: 35%;
+        top: 64%;
+        right: 42%;
       }
       #download-link {
         position: absolute;
-        top: 60%;
+        top: 65%;
         right: 32%;
+        color: wheat;
       }
     </style>
   </head>
@@ -44,7 +50,7 @@
     </video>
     <canvas id="canvas"></canvas>
     <canvas id="video-chamada"></canvas>
-    <button id="capture-button">Capturar Tela</button>
+    <button id="capture-button" capture>Capturar Tela</button>
     <a id="download-link" style="display: none" download="screenshot.png"
       >Baixar Captura de Tela</a
     >
@@ -67,6 +73,7 @@
         });
 
       function renderFrame() {
+        context.imageSmoothingEnabled = true;
         context.drawImage(
           cameraVideo,
           0,
@@ -76,6 +83,7 @@
         );
 
         newContext.drawImage(animatedVideo, 0, 0, canvas.width, canvas.height);
+        newContext.imageSmoothingEnabled = true;
         requestAnimationFrame(renderFrame);
       }
 
@@ -88,7 +96,7 @@
       const downloadLink = document.getElementById("download-link");
 
       captureButton.addEventListener("click", () => {
-        // Captura a tela e salva a imagem em um arquivo
+        // Captura a tela e salva
         navigator.mediaDevices
           .getDisplayMedia({ video: { mediaSource: "screen" } })
           .then((stream) => {
