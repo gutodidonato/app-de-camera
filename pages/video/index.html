@@ -15,31 +15,31 @@
         width: 0.01vw;
       }
       #canvas {
-        width: 99vw;
-        height: 99vh;
+        width: 60vw;
+        height: 60vh;
       }
       #video-chamada {
         position: absolute;
         top: 0;
-        right: 0%;
-        width: 30%;
-        height: 30%;
+        right: 2%;
+        width: 35%;
+        height: 60%;
       }
       #capture-button {
         position: absolute;
-        top: 90%;
+        top: 55%;
         right: 35%;
       }
       #download-link {
         position: absolute;
-        top: 93%;
+        top: 60%;
         right: 32%;
       }
     </style>
   </head>
   <body>
-    <video id="camera-view" autoplay loop muted="" controls></video>
-    <video id="animated-video" autoplay loop muted="">
+    <video id="camera-view" autoplay loop muted playsinline controls></video>
+    <video id="animated-video" autoplay loop muted playsinline>
       <source src="/videoplayback.mp4" type="video/mp4" />
     </video>
     <canvas id="canvas"></canvas>
@@ -58,7 +58,7 @@
       var context = canvas.getContext("2d");
 
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({ video: { frameRate: { ideal: 30, max: 60 } } })
         .then(function (stream) {
           cameraVideo.srcObject = stream;
         })
