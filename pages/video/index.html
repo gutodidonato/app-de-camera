@@ -105,16 +105,14 @@
             return videoCapture.grabFrame();
           })
           .then((imageBitmap) => {
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
             canvas.width = imageBitmap.width;
             canvas.height = imageBitmap.height;
             context.drawImage(imageBitmap, 0, 0);
-            canvas.toBlob((blob) => {
-              const url = URL.createObjectURL(blob);
-              downloadLink.href = url;
-              downloadLink.style.display = "block";
-            }, "image/png");
+            downloadLink.download = "foto.png";
+            downloadLink.href = canvas.toDataURL();
+            downloadLink.style.display = "block";
           })
           .catch((error) => {
             console.error("Erro ao capturar tela: ", error);
