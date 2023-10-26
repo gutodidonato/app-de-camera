@@ -27,8 +27,9 @@
         position: absolute;
         top: 0%;
         right: 0%;
-        width: 50%;
-        margin: 10% 0 0 0;
+        width: 33%;
+        margin: 12% 0 0 0;
+        height: 23%;
       }
       #capture-button {
         position: absolute;
@@ -42,6 +43,7 @@
         color: wheat;
       }
     </style>
+    <script src="../../script/html2canvas.min.js"></script>
   </head>
   <body>
     <video id="camera-view" autoplay loop muted playsinline controls></video>
@@ -96,19 +98,12 @@
       const downloadLink = document.getElementById("download-link");
 
       captureButton.addEventListener("click", () => {
-        // Create a new canvas to draw the screenshot
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const screenshotTarget = document.body;
 
-        // Capture the current screen as an image
-        html2canvas(document.body).then((canvas) => {
-          // Convert the canvas to a data URL
-          const dataURL = canvas.toDataURL("image/png");
-
-          // Set the data URL as the download link href
-          captureButton.href = dataURL;
+        html2canvas(screenshotTarget).then((canvas) => {
+          const base64image = canvas.toDataURL("image/png");
+          downloadLink.href = base64image;
+          downloadLink.click();
         });
       });
     </script>
