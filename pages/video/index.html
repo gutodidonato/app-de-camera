@@ -96,27 +96,20 @@
       const downloadLink = document.getElementById("download-link");
 
       captureButton.addEventListener("click", () => {
-        // Captura a tela e salva
-        navigator.mediaDevices
-          .getDisplayMedia({ video: { mediaSource: "screen" } })
-          .then((stream) => {
-            const videoTrack = stream.getVideoTracks()[0];
-            const videoCapture = new ImageCapture(videoTrack);
-            return videoCapture.grabFrame();
-          })
-          .then((imageBitmap) => {
-            var canvas = document.createElement("canvas");
-            var context = canvas.getContext("2d");
-            canvas.width = imageBitmap.width;
-            canvas.height = imageBitmap.height;
-            context.drawImage(imageBitmap, 0, 0);
-            downloadLink.download = "foto.png";
-            downloadLink.href = canvas.toDataURL();
-            downloadLink.style.display = "block";
-          })
-          .catch((error) => {
-            console.error("Erro ao capturar tela: ", error);
-          });
+        // Create a new canvas to draw the screenshot
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Capture the current screen as an image
+        html2canvas(document.body).then((canvas) => {
+          // Convert the canvas to a data URL
+          const dataURL = canvas.toDataURL("image/png");
+
+          // Set the data URL as the download link href
+          captureButton.href = dataURL;
+        });
       });
     </script>
   </body>
