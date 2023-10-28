@@ -62,7 +62,7 @@ body {
   text-align: center;
   margin-top: 7%;
   margin-bottom: 62%;
-  animation: rodar 2s infinite;
+  animation: rodar 2s ease-in infinite;
   overflow: hidden;
   width: 90%;
 }
