@@ -17,6 +17,7 @@ body {
   align-items: center;
   background: url(../../img/background-final.jpg);
   background-size: 100% 100%;
+  font-family: system-ui;
 }
 
 .topo {
@@ -44,6 +45,7 @@ body {
   text-align: center;
   margin-top: 1px;
   color: white;
+  margin-right: -26px;
 }
 .topo .ultimo {
   display: flex;
