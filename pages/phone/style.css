@@ -51,6 +51,7 @@ body {
   display: flex;
   justify-content: flex-end;
   text-align: right;
+  margin-right: 30px;
 }
 
 .nome-empresa {
@@ -269,7 +270,7 @@ h2 {
     align-items: center;
     text-align: center;
     margin-top: 7%;
-    margin-bottom: 61%;
+    margin-bottom: 50%;
     animation: rodar 2s infinite;
   }
 }
